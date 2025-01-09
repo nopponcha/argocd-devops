@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: helm-multi-source-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - chartRepo: https://charts.bitnami.com/bitnami
+            chartName: nginx
+            releaseName: nginx-dev
+            namespace: dev
+            valuesRepo: https://github.com/nopponcha/argocd-demo.git
+            valuesPath: nginx/dev/values.yaml
+  template:
+    metadata:
+      name: '{{releaseName}}'
+    spec:
+      project: default
+      source:
+        repoURL: '{{chartRepo}}'
+        chart: '{{chartName}}'
+        helm:
+          # Argo CD does not support pulling `values.yaml` directly from a Git repository here.
+          # You need to fetch `values.yaml` into the chart or host it in the Helm repo.
+          # If values are hosted in a Git repo, additional automation is needed.
+        targetRevision: main
+      destination:
+        namespace: '{{namespace}}'
+        server: https://kubernetes.default.svc
