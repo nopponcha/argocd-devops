@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/noppon/ks-guestbook-demo
-  tag: 9999
+  repository: hello-world
+  tag: latest
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
