@@ -28,20 +28,5 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
-          volumeMounts:
-          - name: config-volume
-            mountPath: /config    
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-      volumes:
-        - name: config-volume
-          configMap:
-            name: {{ .Values.name }}-settings        
+              protocol: TCP      
        
