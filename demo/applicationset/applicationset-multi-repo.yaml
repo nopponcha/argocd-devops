@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/your-username/helm-values-repo.git
+        repoURL: https://github.com/nopponcha/argocd-demo.git
         revision: main
         directories:
           - path: configs/*/*
@@ -16,13 +16,12 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/your-username/helm-template-repo.git
+        repoURL: https://github.com/nopponcha/helm-chart.git
         targetRevision: main
         path: charts
         helm:
           valueFiles:
             - "configs/{{path[1]}}/{{path.basename}}/values.yaml"
-            - "configs/{{path[1]}}/values.yaml"
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{path.basename}}"
