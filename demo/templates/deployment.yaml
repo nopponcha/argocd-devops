@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "fullname" . }}
+  name: {{ include "sample-app.fullname" . }}
   labels:
-    {{- include "labels" . | nindent 4 }}
+    {{- include "sample-app.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "selectorLabels" . | nindent 6 }}
+      {{- include "sample-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "selectorLabels" . | nindent 8 }}
+        {{- include "sample-app.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
