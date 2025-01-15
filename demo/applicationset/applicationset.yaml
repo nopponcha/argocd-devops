@@ -23,7 +23,7 @@ spec:
           # specify different values file based on directories variables
           valueFiles:
             - "configs/{{path[2]}}/{{path.basename}}/values.yaml"
-            - "configs/{{path[2]}}/values.yaml"
+            # - "configs/{{path[2]}}/values.yaml"
         path: demo
         repoURL: https://github.com/nopponcha/argocd-devops.git
         targetRevision: main
