@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: testcontainers/helloworld
-  tag: 1.2.0
+  repository: nginx
+  tag: alpine3.20
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
