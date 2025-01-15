@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-multi-repo
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/your-username/helm-values-repo.git
+        revision: main
+        directories:
+          - path: configs/*/*
+  template:
+    metadata:
+      name: "{{path[1]}}-{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/your-username/helm-template-repo.git
+        targetRevision: main
+        path: charts
+        helm:
+          valueFiles:
+            - "configs/{{path[1]}}/{{path.basename}}/values.yaml"
+            - "configs/{{path[1]}}/values.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
