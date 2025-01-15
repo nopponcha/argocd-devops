@@ -5,13 +5,13 @@
 replicaCount: 1
 
 image:
-  repository: hello-world
-  tag: latest
+  repository: testcontainers/helloworld
+  tag: 1.2.0
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
 imagePullSecrets: []
 
 service:
-  type: NodePort
-  port: 30007
+  type: ClusterIP
+  port: 80
