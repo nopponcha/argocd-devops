@@ -15,12 +15,12 @@ spec:
           files:
           - path: demo/applicationset/list-generater/list-elementsYaml.yaml
       - list:
-          elementsYaml: "{{ .demo.app_hulk | toJson }}"
+          elementsYaml: "{{ .demo.hulk | toJson }}"
   - git:
       repoURL: https://github.com/nopponcha/argocd-demo.git
       revision: main
       directories:
-        - path: configs/*/*      
+        - path: configs/*/* 
   template:
     metadata:
       name: '{{.name}}'

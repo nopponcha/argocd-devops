@@ -1,5 +1,5 @@
 demo:
-  app_hulk:
+  hulk:
     - name: app-hulk
       chart: charts
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
