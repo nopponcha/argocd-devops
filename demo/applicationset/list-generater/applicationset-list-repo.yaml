@@ -13,11 +13,11 @@ spec:
           repoURL: https://github.com/nopponcha/argocd-devops.git
           revision: main
           files:
-          - path: demo/applicationset/list-generator/list-elementsYaml.yaml
+          - path: demo/applicationset/list-generater/list-elementsYaml.yaml
       - list:
           elementsYaml: "{{ .demo.app-hulk | toJson }}"
   - git:
-      repoURL: '{{.helmValueRepoUrl}}'
+      repoURL: https://github.com/nopponcha/argocd-demo.git
       revision: main
       directories:
         - path: configs/*/*      
