@@ -16,15 +16,15 @@ spec:
     spec:
       project: default
       sources:
-        repoURL: https://github.com/nopponcha/helm-chart.git
+      - repoURL: https://github.com/nopponcha/helm-chart.git
         targetRevision: main
         path: charts
         helm:
           valueFiles:
-            - "configs/{{path[1]}}/{{path.basename}}/values.yaml"
-            
-        repoURL: https://github.com/nopponcha/argocd-demo.git
-        revision: main
+            - "$values/configs/{{path[1]}}/{{path.basename}}/values.yaml"   
+      - repoURL: https://github.com/nopponcha/argocd-demo.git
+        targetRevision: main
+        ref: values
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{path.basename}}"
