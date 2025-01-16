@@ -3,4 +3,4 @@ demo:
     - name: app-hulk
       chart: charts
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"a
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"

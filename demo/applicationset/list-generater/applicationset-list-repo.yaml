@@ -15,7 +15,7 @@ spec:
           files:
           - path: demo/applicationset/list-generater/list-elementsYaml.yaml
       - list:
-          elementsYaml: "{{ .demo.app-hulk | toJson }}"
+          elementsYaml: "{{ .demo.app_hulk | toJson }}"
   - git:
       repoURL: https://github.com/nopponcha/argocd-demo.git
       revision: main
