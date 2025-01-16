@@ -16,11 +16,11 @@ spec:
           - path: demo/applicationset/list-generator/list-elementsYaml.yaml
       - list:
           elementsYaml: "{{ .demo.app-hulk | toJson }}"
-      - git:
-          repoURL: '{{.helmValueRepoUrl}}'
-          revision: main
-          directories:
-            - path: configs/*/*      
+  - git:
+      repoURL: '{{.helmValueRepoUrl}}'
+      revision: main
+      directories:
+        - path: configs/*/*      
   template:
     metadata:
       name: '{{.name}}'
