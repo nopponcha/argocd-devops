@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-multi-repo
+  name: demo-helm-applicationset-git-generators
   namespace: argocd
 spec:
   generators:
@@ -9,10 +9,10 @@ spec:
         repoURL: https://github.com/nopponcha/argocd-demo.git
         revision: main
         directories:
-          - path: configs/*/*
+          - path: helm-value/*/*/*
   template:
     metadata:
-      name: "{{path[1]}}-{{path.basename}}"
+      name: "{{path[2]}}-{{path.basename}}"
     spec:
       project: default
       sources:
@@ -21,7 +21,7 @@ spec:
         path: charts
         helm:
           valueFiles:
-            - "$values/configs/{{path[1]}}/{{path.basename}}/values.yaml"   
+            - "$values/helm-value/{{path[1]}}/{{path[2]}}/{{path.basename}}/values.yaml"   
       - repoURL: https://github.com/nopponcha/argocd-demo.git
         targetRevision: main
         ref: values

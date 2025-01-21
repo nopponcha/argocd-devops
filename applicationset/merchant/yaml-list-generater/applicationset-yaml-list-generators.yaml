@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-elements-json
+  name: demo-helm-applicationset-yaml-list-generators
   namespace: argocd
 spec:
   goTemplate: true
@@ -19,7 +19,7 @@ spec:
           elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
-      name: '{{ .name }}'
+      name: '{{ .name }}-{{ .env }}'
     spec:
       project: default
       sources:
@@ -34,7 +34,7 @@ spec:
           ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ .name }}'
+        namespace: '{{ .env }}'
       syncPolicy:
         automated:
           prune: true
