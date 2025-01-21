@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-git-generators
+  name: demo-helm-applicationset-git-generators-merchant
   namespace: argocd
 spec:
   generators:
