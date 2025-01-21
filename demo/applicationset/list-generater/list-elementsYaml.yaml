@@ -1,10 +1,13 @@
-scb:
-  scbconnect:
+demo:
+  hulk:
     - name: app-hulk
       chart: charts
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    # - name: app-iron
-    #   chart: charts
-    #   helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-    #   helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+
+demo:
+  iron:
+    - name: app-iron
+      chart: charts
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
