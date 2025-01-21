@@ -2,26 +2,26 @@ scb:
   scbconnect:
     - name: app-hulk
       chart: charts
-      env: dev
+      env: "dev"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: "main"
+      helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
     - name: app-iron
       chart: charts
-      env: dev
+      env: "dev"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: "main"
+      helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
 
     - name: app-hulk
       chart: charts
-      env: sit
+      env: "sit"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: "main"
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
     - name: app-iron
       chart: charts
-      env: sit
+      env: "sit"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: "main"
+      helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      

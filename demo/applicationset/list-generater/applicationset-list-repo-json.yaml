@@ -28,8 +28,8 @@ spec:
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - "$values/configs/{{ .name }}{{ .env }}/values.yaml"
-        - repoURL: "{{ .helmValueRepoUrl }}"
+              - '$values/configs/{{ .name }}{{ .env }}/values.yaml'
+        - repoURL: '{{ .helmValueRepoUrl }}'
           targetRevision: main
           ref: values
       destination:
