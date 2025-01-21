@@ -10,9 +10,10 @@ spec:
         repoURL: https://github.com/nopponcha/argocd-devops.git
         revision: main
         files:
-          - path: demo/applicationset/list-generater/list-elements.json  # Path to the JSON file in the repo
+          - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
     - list:
-        elementsYaml: "{{ readFile 'demo/applicationset/list-generater/list-elements.json' }}"  # Read the JSON file dynamically
+        elements: []
+        elementsYaml: ".demo.hulk | toJson "  # Read the JSON file dynamically
   template:
     metadata:
       name: '{{ .name }}'
