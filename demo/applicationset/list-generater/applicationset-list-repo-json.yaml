@@ -16,7 +16,7 @@ spec:
           - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
       - list:
           elements: []
-          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
+          elementsYaml: "{{ .demo.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
       name: '{{ .name }}'
