@@ -6,25 +6,25 @@ metadata:
 spec:
   goTemplate: true
   generators:
-  - git:
-      repoURL: https://github.com/nopponcha/argocd-devops.git
-      revision: main
-      files:
-        - path: demo/applicationset/list-generater/list-elements.json
-  - list:
-      elementsYaml: "{{ readFile 'demo/applicationset/list-generater/list-elements.json' }}"
+    - git:
+        repoURL: https://github.com/nopponcha/argocd-devops.git
+        revision: main
+        files:
+          - path: demo/applicationset/list-generater/list-elements.json  # Path to the JSON file in the repo
+    - list:
+        elementsYaml: "{{ readFile 'demo/applicationset/list-generater/list-elements.json' }}"  # Read the JSON file dynamically
   template:
     metadata:
       name: '{{ .name }}'
     spec:
       project: default
       sources:
-      - repoURL: '{{ .helmRepoUrl }}'
-        targetRevision: main
-        path: '{{ .chart }}'
-        helm:
-          valueFiles:
-            - "configs/{{ .name }}/values.yaml"
+        - repoURL: '{{ .helmRepoUrl }}'
+          targetRevision: main
+          path: '{{ .chart }}'
+          helm:
+            valueFiles:
+              - "configs/{{ .name }}/values.yaml"
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .name }}'
