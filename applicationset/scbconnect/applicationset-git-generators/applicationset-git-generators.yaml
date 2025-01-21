@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/nopponcha/argocd-demo.git
         revision: main
         directories:
-          - path: helm-value/*/*/*
+          - path: helm-value/scbconnect/*/*
   template:
     metadata:
       name: "{{path[2]}}-{{path.basename}}"
@@ -21,7 +21,7 @@ spec:
         path: charts
         helm:
           valueFiles:
-            - "$values/helm-value/{{path[1]}}/{{path[2]}}/{{path.basename}}/values.yaml"   
+            - "$values/helm-value/scbconnect/{{path[2]}}/{{path.basename}}/values.yaml"   
       - repoURL: https://github.com/nopponcha/argocd-demo.git
         targetRevision: main
         ref: values
@@ -31,3 +31,4 @@ spec:
       syncPolicy:
         automated:
           prune: true
+          selfHeal: true
