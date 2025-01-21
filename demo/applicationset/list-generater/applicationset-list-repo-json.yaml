@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-elements-json
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: https://github.com/nopponcha/argocd-devops.git
+      revision: main
+      files:
+        - path: demo/applicationset/list-generater/list-elements.json
+  - list:
+      elementsYaml: "{{ readFile 'demo/applicationset/list-generater/list-elements.json' }}"
+  template:
+    metadata:
+      name: '{{ .name }}'
+    spec:
+      project: default
+      sources:
+      - repoURL: '{{ .helmRepoUrl }}'
+        targetRevision: main
+        path: '{{ .chart }}'
+        helm:
+          valueFiles:
+            - "configs/{{ .name }}/values.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .name }}'
+      syncPolicy:
+        automated:
+          prune: true
