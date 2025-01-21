@@ -7,14 +7,16 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - git:
-        repoURL: https://github.com/nopponcha/argocd-devops.git
-        revision: main
-        files:
-        - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
-    - list:
-        elements: []
-        elementsYaml: "{{ .demo.hulk | toJson }}"  # Read the JSON file dynamically
+  - matrix:
+      generators:
+      - git:
+          repoURL: https://github.com/nopponcha/argocd-devops.git
+          revision: main
+          files:
+          - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
+      - list:
+          elements: []
+          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
       name: '{{ .name }}'
