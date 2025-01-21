@@ -16,31 +16,22 @@ spec:
           - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
       - list:
           elements: []
-          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically 
-  - git:
-      repoURL: https://github.com/nopponcha/argocd-demo.git
-      revision: main
-      directories:
-        - path: configs/*/*    
+          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
-      # Use a valid Go template expression
-      name: "{{ .name }}"  # You can use .name if it's available, or directly use .path basename if needed.
+      name: '{{ .name }}'
     spec:
       project: default
       sources:
-      - repoURL: "{{ .helmRepoUrl }}"
-        targetRevision: "{{ .helmTargetRevision }}"
-        path: charts
-        helm:
-          valueFiles:
-            - "configs/{{ .name }}/{{ .path.basename }}/values.yaml"   # Use a corrected expression here.
-      - repoURL: "{{ .helmValueRepoUrl }}"
-        targetRevision: "{{ .helmTargetRevision }}"
-        ref: values
+        - repoURL: '{{ .helmRepoUrl }}'
+          targetRevision: main
+          path: '{{ .chart }}'
+          helm:
+            valueFiles:
+              - "configs/{{ .name }}{{ .env }}/values.yaml"
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{ .path.basename }}"
+        namespace: '{{ .name }}'
       syncPolicy:
         automated:
           prune: true
