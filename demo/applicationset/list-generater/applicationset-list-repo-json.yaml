@@ -28,7 +28,10 @@ spec:
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - "configs/{{ .name }}{{ .env }}/values.yaml"
+              - "$values/configs/{{ .name }}{{ .env }}/values.yaml"
+        - repoURL: "{{ .helmValueRepoUrl }}"
+          targetRevision: main
+          ref: values
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .name }}'
