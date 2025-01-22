@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: demo-helm-applicationset-git-generators-scbconnect
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
     - git:
@@ -31,4 +33,4 @@ spec:
       syncPolicy:
         automated:
           prune: true
-          selfHeal: true
+          selfHeal: true        
