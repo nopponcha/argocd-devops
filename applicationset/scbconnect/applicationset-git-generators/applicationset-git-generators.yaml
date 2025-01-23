@@ -9,9 +9,9 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/nopponcha/argocd-demo.git
-        revision: main
+        revision: HEAD
         directories:
-          - path: helm-value/scbconnect/*/*
+          - path: helm-value/scbconnect/*/**
   template:
     metadata:
       name: "{{path[2]}}-{{path.basename}}"
@@ -19,13 +19,13 @@ spec:
       project: default
       sources:
       - repoURL: https://github.com/nopponcha/helm-chart.git
-        targetRevision: main
+        targetRevision: HEAD
         path: charts
         helm:
           valueFiles:
             - "$values/helm-value/scbconnect/{{path[2]}}/{{path.basename}}/values.yaml"   
       - repoURL: https://github.com/nopponcha/argocd-demo.git
-        targetRevision: main
+        targetRevision: HEAD
         ref: values
       destination:
         server: https://kubernetes.default.svc
