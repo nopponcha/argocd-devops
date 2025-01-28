@@ -6,18 +6,31 @@ scb:
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    - name: app-fe
+    - name: app-be
       chart: charts
-      env: "dev"
+      env: "qa"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
     - name: app-be
       chart: charts
       env: "sit"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+##############################################################################################      
+    - name: app-fe
+      chart: charts
+      env: "dev"
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmTargetRevision: main
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+    - name: app-fe
+      chart: charts
+      env: "qa"
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmTargetRevision: main
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"            
     - name: app-fe
       chart: charts
       env: "sit"
