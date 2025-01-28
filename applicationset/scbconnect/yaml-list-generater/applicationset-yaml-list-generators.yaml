@@ -1,44 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-yaml-list-generators-scbconnect
+  name: demo-helm-applicationset
   namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - matrix:
-      generators:
-      - git:
-          repoURL: https://github.com/nopponcha/argocd-devops.git
-          revision: main
-          files:
+    - git:
+        repoURL: "https://github.com/nopponcha/argocd-devops.git"
+        revision: "main"
+        files:
           - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml  # Path to the YAML file in the repo
-      - list:
-          elements: []
-          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
+    - list:
+        elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"  # Read the applications list dynamically as JSON
   template:
     metadata:
-      name: '{{ default "default-name" .name }}-{{ default "default-env" .env }}'  # Use default value if name/env is missing
+      name: '{{ .name }}-{{ .env }}'
     spec:
       project: default
       sources:
-        - repoURL: '{{ .helmRepoUrl }}'
-          targetRevision: main
+        - repoURL: '{{ .commonSettings.helmRepoUrl }}'
+          targetRevision: '{{ .commonSettings.helmTargetRevision }}'
           path: '{{ .chart }}'
           helm:
             valueFiles:
               - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
-        - repoURL: '{{ .helmValueRepoUrl }}'
-          targetRevision: main
-          ref: values
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
-          selfHeal: true  # If manually scale up replicas, it will scale down to Desired State (git repo)
-          prune: true  # If = true, manifest deleted from Actual State will be deleted
+          selfHeal: true
+          prune: true
         syncOptions:
-         - CreateNamespace=true       
-         - DisableHelmChartCache=true
+          - CreateNamespace=true
+          - DisableHelmChartCache=true
