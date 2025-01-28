@@ -19,7 +19,7 @@ spec:
           elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
-      name: '{{ .appname }}-{{ .appenv }}'
+      name: '{{ default "default-name" .name }}-{{ default "default-env" .env }}'  # Use default value if name/env is missing
     spec:
       project: default
       sources:
@@ -28,17 +28,17 @@ spec:
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .appname }}/{{ .appenv }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .helmValueRepoUrl }}'
           targetRevision: main
           ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ .appenv }}'
+        namespace: '{{ .env }}'
       syncPolicy:
         automated:
-          selfHeal: true # if manually scale up replicas ,its will scale down to Desired State (git repo)
-          prune: true # if = true manifest deleted the Actual State will be deleted
+          selfHeal: true  # If manually scale up replicas, it will scale down to Desired State (git repo)
+          prune: true  # If = true, manifest deleted from Actual State will be deleted
         syncOptions:
          - CreateNamespace=true       
-         - DisableHelmChartCache=true 
+         - DisableHelmChartCache=true

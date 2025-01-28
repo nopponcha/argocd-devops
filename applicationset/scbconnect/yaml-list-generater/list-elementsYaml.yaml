@@ -1,20 +1,20 @@
 scb:
   scbconnect:
-    - appname: app-be
+    - name: app-be
       chart: charts
-      appenv: "dev"
+      env: "dev"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    - appname: app-fe
+    - name: app-fe
       chart: charts
-      appenv: "dev"
+      env: "dev"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    # - appname: app-be
-    #   chart: charts
-    #   appenv: "sit"
-    #   helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-    #   helmTargetRevision: main
-    #   helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
+    - name: app-be
+      chart: charts
+      env: "sit"
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmTargetRevision: main
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
