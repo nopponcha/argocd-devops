@@ -13,7 +13,7 @@ spec:
           repoURL: https://github.com/nopponcha/argocd-devops.git
           revision: main
           files:
-          - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the JSON file in the repo
+          - path: demo/applicationset/list-generater/list-elementsYaml.yaml  # Path to the YAML file in the repo
       - list:
           elements: []
           elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
@@ -35,6 +35,9 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .env }}'
-      syncPolicy:
         automated:
-          prune: true
+          selfHeal: true # if manually scale up replicas ,its will scale down to Desired State (git repo)
+          prune: true # if = true manifest deleted the Actual State will be deleted
+        syncOptions:
+         - CreateNamespace=true       
+         - DisableHelmChartCache=true

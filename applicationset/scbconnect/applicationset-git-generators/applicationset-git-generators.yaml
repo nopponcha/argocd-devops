@@ -11,7 +11,7 @@ spec:
         repoURL: https://github.com/nopponcha/argocd-demo.git
         revision: HEAD
         directories:
-          - path: helm-value/scbconnect/*/**
+          - path: helm-value/scbconnect/*/*
   template:
     metadata:
       name: "{{path[2]}}-{{path.basename}}"
@@ -32,5 +32,8 @@ spec:
         namespace: "{{path.basename}}"
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true        
+          selfHeal: true # if manually scale up replicas ,its will scale down to Desired State (git repo)
+          prune: true # if = true manifest deleted the Actual State will be deleted
+        syncOptions:
+         - CreateNamespace=true       
+         - DisableHelmChartCache=true 
