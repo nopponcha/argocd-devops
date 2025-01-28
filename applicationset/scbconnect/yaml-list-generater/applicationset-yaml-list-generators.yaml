@@ -13,7 +13,7 @@ spec:
           repoURL: https://github.com/nopponcha/argocd-devops.git
           revision: main
           files:
-          - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml  # Path to the YAML file in the repo
+          - path: applicationset/scbconnect/yaml-list-generater/*  # Path to the YAML file in the repo
       - list:
           elements: []
           elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
