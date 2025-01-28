@@ -12,9 +12,9 @@ scb:
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    - appname: app-be
-      chart: charts
-      appenv: "sit"
-      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: main
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
+    # - appname: app-be
+    #   chart: charts
+    #   appenv: "sit"
+    #   helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+    #   helmTargetRevision: main
+    #   helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
