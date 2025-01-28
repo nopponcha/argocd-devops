@@ -19,7 +19,7 @@ spec:
           elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ .appname }}-{{ .appenv }}'
     spec:
       project: default
       sources:
@@ -28,13 +28,13 @@ spec:
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .appname }}/{{ .appenv }}/values.yaml'
         - repoURL: '{{ .helmValueRepoUrl }}'
           targetRevision: main
           ref: values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ .env }}'
+        namespace: '{{ .appenv }}'
       syncPolicy:
         automated:
           selfHeal: true # if manually scale up replicas ,its will scale down to Desired State (git repo)
