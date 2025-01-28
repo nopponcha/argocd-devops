@@ -1,34 +1,34 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset
+  name: demo-helm-applicationset-yaml-list-generators-scbconnect
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  goTemplateOptions: ["missingkey=default"]
   generators:
     - git:
         repoURL: "https://github.com/nopponcha/argocd-devops.git"
         revision: "main"
         files:
-          - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml  # Path to the YAML file in the repo
+          - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
     - list:
-        elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"  # Read the applications list dynamically as JSON
+        elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"  # Dynamically read applications
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ .name }}-{{ .env.env }}'  # Ensure proper access to nested `env`
     spec:
       project: default
       sources:
-        - repoURL: '{{ .commonSettings.helmRepoUrl }}'
-          targetRevision: '{{ .commonSettings.helmTargetRevision }}'
+        - repoURL: '{{ .scb.scbconnect.commonSettings.helmRepoUrl }}'
+          targetRevision: '{{ .scb.scbconnect.commonSettings.helmTargetRevision }}'
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env.env }}/values.yaml'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ .env }}'
+        namespace: '{{ .env.env }}'
       syncPolicy:
         automated:
           selfHeal: true
