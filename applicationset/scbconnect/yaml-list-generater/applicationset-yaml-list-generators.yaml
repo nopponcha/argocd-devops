@@ -16,7 +16,7 @@ spec:
         elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"  # Dynamically read applications
   template:
     metadata:
-      name: '{{ .name }}-{{ .env.env }}'  # Ensure proper access to nested `env`
+      name: '{{ .name }}-{{ .envs.env }}'  # Ensure proper access to nested `env`
     spec:
       project: default
       sources:
