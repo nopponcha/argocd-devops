@@ -12,8 +12,8 @@ spec:
         revision: "main"
         files:
           - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
-  - list:
-      elementsYaml: '{{ .scb.scbconnect.applications | toJson }}'
+    - list:
+        elementsYaml: '{{ .scb.scbconnect.applications | toJson }}'
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'
