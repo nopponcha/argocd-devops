@@ -1,38 +1,44 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset
+  name: demo-helm-applicationset-yaml-list-generators-scbconnect
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=default"]
+  goTemplateOptions: ["missingkey=error"]
   generators:
-    - git:
-        repoURL: "https://github.com/nopponcha/argocd-devops.git"
-        revision: "main"
-        files:
-          - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
-    - list:
-        elementsYaml: '{{ .scb.scbconnect.applications | toJson }}'
+  - matrix:
+      generators:
+      - git:
+          repoURL: https://github.com/nopponcha/argocd-devops.git
+          revision: main
+          files:
+          - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml  # Path to the YAML file in the repo
+      - list:
+          elements: []
+          elementsYaml: "{{ .scb.scbconnect | toJson }}"  # Read the JSON file dynamically
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ default "default-name" .name }}-{{ default "default-env" .env }}'  # Use default value if name/env is missing
     spec:
       project: default
       sources:
-        - repoURL: '{{ .scb.scbconnect.commonSettings.helmRepoUrl }}'
-          targetRevision: '{{ .scb.scbconnect.commonSettings.helmTargetRevision }}'
+        - repoURL: '{{ .helmRepoUrl }}'
+          targetRevision: main
           path: '{{ .chart }}'
           helm:
             valueFiles:
               - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+        - repoURL: '{{ .helmValueRepoUrl }}'
+          targetRevision: main
+          ref: values
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
-          selfHeal: true
-          prune: true
+          selfHeal: true  # If manually scale up replicas, it will scale down to Desired State (git repo)
+          prune: true  # If = true, manifest deleted from Actual State will be deleted
         syncOptions:
-          - CreateNamespace=true
-          - DisableHelmChartCache=true
+         - CreateNamespace=true       
+         - DisableHelmChartCache=true
