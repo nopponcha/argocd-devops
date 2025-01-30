@@ -4,18 +4,15 @@ scb:
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: "main"
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    
+
     applications:
       - name: app-be
         chart: charts
         envs:
-          - env: dev
-          - env: qa
-          - env: sit
+          - "dev"
+          - "sit"
 
       - name: app-fe
         chart: charts
         envs:
-          - env: dev
-          - env: qa
-          - env: sit
+          - "sit"

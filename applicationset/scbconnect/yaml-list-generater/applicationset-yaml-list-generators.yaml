@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-yaml-list-generators-scbconnect
+  name: demo-helm-applicationset
   namespace: argocd
 spec:
   goTemplate: true
@@ -12,11 +12,11 @@ spec:
         revision: "main"
         files:
           - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
-    - list:
-        elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"  # Dynamically read applications
+  - list:
+      elementsYaml: '{{ .scb.scbconnect.applications | toJson }}'
   template:
     metadata:
-      name: '{{ .name }}-{{ .envs.env }}'  # Ensure proper access to nested `env`
+      name: '{{ .name }}-{{ .env }}'
     spec:
       project: default
       sources:
@@ -25,10 +25,10 @@ spec:
           path: '{{ .chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env.env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ .env.env }}'
+        namespace: '{{ .env }}'
       syncPolicy:
         automated:
           selfHeal: true
