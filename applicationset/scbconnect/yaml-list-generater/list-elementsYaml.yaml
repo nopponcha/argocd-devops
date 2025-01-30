@@ -13,15 +13,15 @@ scb:
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
 ####################### SIT #######################
-    # - name: app-fe
-    #   chart: charts
-    #   env: "sit"
-    #   helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-    #   helmTargetRevision: main
-    #   helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
-    # - name: app-be
-    #   chart: charts
-    #   env: "sit"
-    #   helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-    #   helmTargetRevision: main
-    #   helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+    - name: app-fe
+      chart: charts
+      env: "sit"
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmTargetRevision: main
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
+    - name: app-be
+      chart: charts
+      env: "sit"
+      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+      helmTargetRevision: main
+      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
