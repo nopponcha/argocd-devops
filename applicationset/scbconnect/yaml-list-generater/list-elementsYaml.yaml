@@ -27,11 +27,11 @@ scb:
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
       valuesPath: "helm-value/scbconnect"
     applications:
-      - env: "dev"
+      - env: dev
         apps:
           - name: app-be
           - name: app-fe
-      - env: "sit"
+      - env: sit
         apps:
           - name: app-be
           - name: app-fe
