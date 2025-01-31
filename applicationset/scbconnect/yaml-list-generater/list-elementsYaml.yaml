@@ -1,12 +1,10 @@
 scb:
   scbconnect:
-    # ข้อมูลที่ซ้ำกัน (เช่น chart, helmRepoUrl) ถูกกลุ่มไว้
     common:
       chart: charts
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    # ข้อมูลที่แตกต่างกัน (เช่น name, env) จะถูกระบุสำหรับแต่ละ ENV
     applications:
       - name: app-be
         env: "dev"
