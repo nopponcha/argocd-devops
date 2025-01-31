@@ -15,13 +15,7 @@ spec:
             files:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
-            elementsYaml: |
-              {{- range .scb.scbconnect.applications }}
-                {{- range .apps }}
-                  - env: "{{ .env }}"
-                    name: "{{ .name }}"
-                {{- end }}
-              {{- end }}
+            elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'
