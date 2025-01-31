@@ -15,7 +15,6 @@ spec:
             files:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
-            # elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
             elementsYaml: |
               {{- range .scb.scbconnect.applications }}
                 {{- range .apps }}
@@ -34,7 +33,7 @@ spec:
           path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+              - '{{ .scb.scbconnect.common.valuesPath }}/{{ .name }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
