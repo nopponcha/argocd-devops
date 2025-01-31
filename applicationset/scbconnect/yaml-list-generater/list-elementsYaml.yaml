@@ -18,6 +18,7 @@
 #         env: "qa"        
 #       - name: app-fe
 #         env: "sit"
+#
 scb:
   scbconnect:
     common:
@@ -35,3 +36,4 @@ scb:
         apps:
           - name: app-be
           - name: app-fe
+

@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=default"]
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
@@ -15,16 +15,10 @@ spec:
             files:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
-            elementsYaml: |
-              {{- range .scb.scbconnect.applications }}
-                {{- range .apps }}
-                  - env: "{{ .env }}"
-                    name: "{{ .name }}"
-                {{- end }}
-              {{- end }}
+            elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
   template:
     metadata:
-      name: '{{name}}-{{env}}'
+      name: '{{ .name }}-{{ .env }}'
     spec:
       project: default
       sources:
@@ -33,7 +27,7 @@ spec:
           path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '{{ .scb.scbconnect.common.valuesPath }}/{{ .name }}/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
