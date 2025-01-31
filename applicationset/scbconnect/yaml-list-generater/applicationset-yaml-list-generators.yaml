@@ -16,7 +16,13 @@ spec:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
             # elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
-            elementsYaml: "{{ range .scb.scbconnect.applications }}{{ range .apps }}{ \"env\": \"{{ .env }}\", \"name\": \"{{ .name }}\" }{{ end }}{{ end }}"
+            elementsYaml: |
+              {{- range .scb.scbconnect.applications }}
+                {{- range .apps }}
+                  - env: "{{ default "default" .env }}"
+                    name: "{{ default "default-name" .name }}"
+                {{- end }}
+              {{- end }}
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'
