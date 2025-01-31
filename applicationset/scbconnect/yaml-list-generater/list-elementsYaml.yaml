@@ -19,6 +19,21 @@
 #       - name: app-fe
 #         env: "sit"
 #
+# scb:
+#   scbconnect:
+#     common:
+#       chart: charts
+#       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+#       helmTargetRevision: main
+#       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+#       valuesPath: "helm-value/scbconnect"
+#     applications:
+#       - env: dev
+#         name: app-be
+#         name: app-fe
+#       - env: sit
+#         name: app-be
+#         name: app-fe
 scb:
   scbconnect:
     common:
@@ -29,8 +44,11 @@ scb:
       valuesPath: "helm-value/scbconnect"
     applications:
       - env: dev
-        name: app-be
-        name: app-fe
+        apps:
+          - name: app-be
+          - name: app-fe
       - env: sit
-        name: app-be
-        name: app-fe
+        apps:
+          - name: app-be
+          - name: app-fe
+

@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=default"]
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
@@ -27,7 +27,7 @@ spec:
           path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '{{ .scb.scbconnect.common.valuesPath }}/{{ .name }}/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
