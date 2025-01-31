@@ -18,30 +18,18 @@
 #         env: "qa"        
 #       - name: app-fe
 #         env: "sit"
-# scb:
-#   scbconnect:
-#     common:  # 🔹 ตัวแปรที่ใช้ร่วมกันทุก env (ลดการซ้ำซ้อน)
-#       chart: charts
-#       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-#       helmTargetRevision: main
-#       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-
-#     applications:
-#       dev:  # 🔹 กลุ่มของ Dev environment
-#         - name: app-be
-#         - name: app-fe
-#       sit:  # 🔹 กลุ่มของ SIT environment
-#         - name: app-be
-#         - name: app-fe
 scb:
   scbconnect:
-    applications:
-      dev:
-        name: app-fe
-      qa:
-        name: app-fe
     common:
       chart: charts
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+
+    applications:
+      - dev:
+        name: app-be
+        name: app-fe
+      - sit:
+        name: app-be
+        name: app-fe
