@@ -24,7 +24,7 @@ spec:
               {{- end }}
   template:
     metadata:
-      name: '{{ default "default-name" .name }}-{{ default "default-env" .env }}'
+      name: '{{ .name }}-{{ default "default-env" .env }}'
     spec:
       project: default
       sources:
