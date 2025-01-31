@@ -18,13 +18,13 @@ spec:
             elementsYaml: |
               {{- range .scb.scbconnect.applications }}
                 {{- range .apps }}
-                  - env: "{{ default "default" .env }}"
-                    name: "{{ default "default-name" .name }}"
+                  - env: "{{ .env }}"
+                    name: "{{ .name }}"
                 {{- end }}
               {{- end }}
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ default "default-name" .name }}-{{ default "default-env" .env }}'
     spec:
       project: default
       sources:
