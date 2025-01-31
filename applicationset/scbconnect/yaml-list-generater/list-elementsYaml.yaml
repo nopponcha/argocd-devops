@@ -1,27 +1,18 @@
 scb:
   scbconnect:
-    - name: app-be
+    # ข้อมูลที่ซ้ำกัน (เช่น chart, helmRepoUrl) ถูกกลุ่มไว้
+    common:
       chart: charts
-      env: "dev"
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-    - name: app-fe
-      chart: charts
-      env: "dev"
-      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: main
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-####################### SIT #######################
-    - name: app-fe
-      chart: charts
-      env: "sit"
-      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: main
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"      
-    - name: app-be
-      chart: charts
-      env: "sit"
-      helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-      helmTargetRevision: main
-      helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+    # ข้อมูลที่แตกต่างกัน (เช่น name, env) จะถูกระบุสำหรับแต่ละ ENV
+    applications:
+      - name: app-be
+        env: "dev"
+      - name: app-fe
+        env: "dev"
+      - name: app-fe
+        env: "sit"
+      - name: app-be
+        env: "sit"
