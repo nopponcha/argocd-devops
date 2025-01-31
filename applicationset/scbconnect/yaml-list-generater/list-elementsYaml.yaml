@@ -1,24 +1,3 @@
-# scb:
-#   scbconnect:
-#     common:
-#       chart: charts
-#       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
-#       helmTargetRevision: main
-#       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-#     applications:
-#       - name: app-be
-#         env: "dev"
-#       - name: app-be
-#         env: "qa"
-#       - name: app-be
-#         env: "sit"        
-#       - name: app-fe
-#         env: "dev"
-#       - name: app-fe
-#         env: "qa"        
-#       - name: app-fe
-#         env: "sit"
-#
 scb:
   scbconnect:
     common:
@@ -26,11 +5,32 @@ scb:
       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
       helmTargetRevision: main
       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
-      valuesPath: "helm-value/scbconnect"
     applications:
-      - env: dev
-        - name: app-be
-        - name: app-fe
-      - env: sit
-        - name: app-be
-        - name: app-fe
+      - name: app-be
+        env: "dev"
+      - name: app-be
+        env: "qa"
+      - name: app-be
+        env: "sit"        
+      - name: app-fe
+        env: "dev"
+      - name: app-fe
+        env: "qa"        
+      - name: app-fe
+        env: "sit"
+
+# scb:
+#   scbconnect:
+#     common:
+#       chart: charts
+#       helmRepoUrl: "https://github.com/nopponcha/helm-chart.git"
+#       helmTargetRevision: main
+#       helmValueRepoUrl: "https://github.com/nopponcha/argocd-demo.git"
+#       valuesPath: "helm-value/scbconnect"
+#     applications:
+#       - env: dev
+#         - name: app-be
+#         - name: app-fe
+#       - env: sit
+#         - name: app-be
+#         - name: app-fe
