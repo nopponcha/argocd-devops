@@ -29,8 +29,8 @@ scb:
       valuesPath: "helm-value/scbconnect"
     applications:
       - env: dev
-        name: app-be
-        name: app-fe
+        - name: app-be
+        - name: app-fe
       - env: sit
-        name: app-be
-        name: app-fe
+        - name: app-be
+        - name: app-fe
