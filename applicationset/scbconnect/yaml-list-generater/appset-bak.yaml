@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-applicationset-yaml-list-generators-scbconnect
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+        - git:
+            repoURL: https://github.com/nopponcha/argocd-devops.git
+            revision: main
+            files:
+              - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
+        - list:
+            elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
+  template:
+    metadata:
+      name: '{{ .name }}-{{ .env }}'
+    spec:
+      project: default
+      sources:
+        - repoURL: '{{ .scb.scbconnect.common.helmRepoUrl }}'
+          targetRevision: '{{ .scb.scbconnect.common.helmTargetRevision }}'
+          path: '{{ .scb.scbconnect.common.chart }}'
+          helm:
+            valueFiles:
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+        - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
+          targetRevision: main
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .env }}'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+          - DisableHelmChartCache=true
