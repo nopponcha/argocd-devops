@@ -9,19 +9,19 @@ spec:
   generators:
     - matrix:
         generators:
-          - git:
-              repoURL: https://github.com/nopponcha/argocd-devops.git
-              revision: main
-              files:
-                - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
-          - list:
-              elementsYaml: |
-                {{- range .scb.scbconnect.applications }}
-                  {{- range .apps }}
-                    - env: "{{ .env }}"
-                      name: "{{ .name }}"
-                  {{- end }}
+        - git:
+            repoURL: https://github.com/nopponcha/argocd-devops.git
+            revision: main
+            files:
+              - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
+        - list:
+            elementsYaml: |
+              {{- range .scb.scbconnect.applications }}
+                {{- range .apps }}
+                  - env: "{{ .env }}"
+                    name: "{{ .name }}"
                 {{- end }}
+              {{- end }}
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'

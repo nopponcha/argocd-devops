@@ -36,7 +36,12 @@
 #         apps:
 #           - name: app-be
 #           - name: app-fe
-- env: dev
-  name: app-be
-- env: sit
-  name: app-be
+scb:
+  scbconnect:
+    applications:
+      - env: dev
+        apps:
+          - name: app-be
+      - env: sit
+        apps:
+          - name: app-be
