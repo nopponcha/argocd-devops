@@ -31,9 +31,9 @@ scb:
     applications:
     - env: dev
       apps:
-      - name: app-be
-      - name: app-fe
+      - name: "app-be"
+      - name: "app-fe"
     - env: sit
       apps:
-      - name: app-be
-      - name: app-fe 
+      - name: "app-be"
+      - name: "app-fe" 
