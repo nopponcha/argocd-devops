@@ -52,3 +52,6 @@ scb:
       - env: sit
         name: app-be
         name: app-fe
+      - env: qa
+        name: app-be
+        name: app-fe        
