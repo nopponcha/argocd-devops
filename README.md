@@ -57,6 +57,7 @@ spec:
 Explanation of Key Sections
 1. Git Generator Configuration:
 
+```yaml
 generators:
   - git:
       repoURL: https://github.com/nopponcha/argocd-demo.git
@@ -70,6 +71,7 @@ generators:
 
 2. Application Template:
 
+```yaml
 template:
   metadata:
     name: "{{path[2]}}-{{path.basename}}"
@@ -78,6 +80,7 @@ template:
 
 3. Source Configuration for Helm:
 
+```yaml
 sources:
   - repoURL: https://github.com/nopponcha/helm-chart.git
     targetRevision: HEAD
@@ -92,6 +95,7 @@ sources:
 
 4. Destination Configuration:
 
+```yaml
 destination:
   server: https://kubernetes.default.svc
   namespace: "{{path.basename}}"
