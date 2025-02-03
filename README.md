@@ -60,27 +60,33 @@ spec:
         syncOptions:
           - CreateNamespace=true  # Automatically create namespaces if they don't exist
           - DisableHelmChartCache=true  # Disable Helm chart caching to always fetch the latest chart version
----
-Explanation of Key Sections
+```
+## Explanation of Key Sections
 1. Git Generator Configuration
 repoURL: Specifies the Git repository where Argo CD will pull the configuration from.
 revision: Set to HEAD, meaning the latest commit from the default branch will be used.
 directories: Defines a path pattern (helm-value/scbconnect/*/*) to search for directories in the repository that match the pattern. Each matching directory will generate a new application.
+
 2. Application Template
 metadata.name: Dynamically generates the application name from the Git path. path[2] refers to the third element in the path, and path.basename refers to the base name of the directory.
+
 3. Source Configuration for Helm
 repoURL: Specifies the Git repository containing the Helm charts.
 valueFiles: Uses a dynamic Git path to specify the location of the values.yaml file for the Helm chart.
+
 4. Destination Configuration
 namespace: Dynamically sets the Kubernetes namespace based on the base name of the directory in the Git path.
+
 5. Sync Policy
 selfHeal: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.
 prune: Removes resources from the cluster if they are deleted from the Git repository.
 syncOptions: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
-Final Output
+
+## Final Output
 This configuration will result in the creation of multiple Argo CD applications based on the directories found in the specified Git repository (helm-value/scbconnect/*/*). For each directory, an application will be created with the following details:
 
 The application name will be dynamically generated from the Git path.
 The Helm chart and corresponding values.yaml will be used to deploy the application.
-Conclusion
+
+## Conclusion
 This example demonstrates how to use the Git Generator in Argo CD's ApplicationSet to automatically create multiple applications based on directories in a Git repository. By using dynamic path variables, we can customize the deployment of Helm charts and values to Kubernetes, making the process of managing multiple environments more efficient and automated.
