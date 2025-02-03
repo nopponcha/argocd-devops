@@ -1,3 +1,9 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-applicationset-yaml-list-generators-scbconnect
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -10,20 +16,20 @@ spec:
             files:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
-            elementsYaml: "{{ .applications | toJson }}"  # ปรับให้ตรงกับ YAML จริง
+            elementsYaml: "{{ .scb.scbconnect.applications | toJson }}"
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'
     spec:
       project: default
       sources:
-        - repoURL: '{{ .scbconnect.common.helmRepoUrl }}'
-          targetRevision: '{{ .scbconnect.common.helmTargetRevision }}'
-          path: '{{ .scbconnect.common.chart }}'
+        - repoURL: '{{ .scb.scbconnect.common.helmRepoUrl }}'
+          targetRevision: '{{ .scb.scbconnect.common.helmTargetRevision }}'
+          path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '$values/{{ .scbconnect.common.valuesPath }}/{{ .name }}/{{ .env }}/values.yaml'
-        - repoURL: '{{ .scbconnect.common.helmValueRepoUrl }}'
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+        - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
       destination:
