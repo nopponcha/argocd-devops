@@ -33,6 +33,10 @@ scb:
       apps:
       - name: "app-be"
       - name: "app-fe"
+    - env: qa
+      apps:
+      - name: "app-be"
+      - name: "app-fe"      
     - env: sit
       apps:
       - name: "app-be"
