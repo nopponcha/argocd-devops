@@ -63,9 +63,9 @@ spec:
 ```
 ## Explanation of Key Sections
 1. Git Generator Configuration
-repoURL: Specifies the Git repository where Argo CD will pull the configuration from.
-revision: Set to HEAD, meaning the latest commit from the default branch will be used.
-directories: Defines a path pattern (helm-value/scbconnect/*/*) to search for directories in the repository that match the pattern. Each matching directory will generate a new application.
+- **repoURL**: Specifies the Git repository where Argo CD will pull the configuration from.
+- **revision**: Set to HEAD, meaning the latest commit from the default branch will be used.
+- **directories**: Defines a path pattern (helm-value/scbconnect/*/*) to search for directories in the repository that match the pattern. Each matching directory will generate a new application.
 
 2. Application Template
 metadata.name: Dynamically generates the application name from the Git path. path[2] refers to the third element in the path, and path.basename refers to the base name of the directory.
