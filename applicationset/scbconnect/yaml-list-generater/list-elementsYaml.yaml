@@ -34,7 +34,6 @@
 #       - env: sit
 #         - name: app-be
 #         - name: app-fe
----
 scb:
   scbconnect:
     common:
