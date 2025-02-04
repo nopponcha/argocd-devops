@@ -78,9 +78,9 @@ valueFiles: Uses a dynamic Git path to specify the location of the values.yaml f
 **namespace**: Dynamically sets the Kubernetes namespace based on the base name of the directory in the Git path.
 
 5. ## Sync Policy
-**selfHeal**: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.
-**prune**: Removes resources from the cluster if they are deleted from the Git repository.
-**syncOp tions**: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
+**selfHeal: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.**
+**prune: Removes resources from the cluster if they are deleted from the Git repository.**
+**syncOptions: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.**
 
 ## Final Output
 This configuration will result in the creation of multiple Argo CD applications based on the directories found in the specified Git repository (helm-value/scbconnect/*/*). For each directory, an application will be created with the following details:
