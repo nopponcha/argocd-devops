@@ -88,7 +88,7 @@ This configuration will result in the creation of multiple Argo CD applications 
 The application name will be dynamically generated from the Git path.
 The Helm chart and corresponding values.yaml will be used to deploy the application.
 
-## Conclusion
+### Conclusion
 This example demonstrates how to use the Git Generator in Argo CD's ApplicationSet to automatically create multiple applications based on directories in a Git repository. By using dynamic path variables, we can customize the deployment of Helm charts and values to Kubernetes, making the process of managing multiple environments more efficient and automated.
 
 ## Example Using a YAML Configuration for ApplicationSet
