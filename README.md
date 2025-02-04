@@ -80,7 +80,7 @@ valueFiles: Uses a dynamic Git path to specify the location of the values.yaml f
 5. ## Sync Policy
 **selfHeal**: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.
 **prune**: Removes resources from the cluster if they are deleted from the Git repository.
-**syncOptions**: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
+**syncOp tions**: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
 
 ## Final Output
 This configuration will result in the creation of multiple Argo CD applications based on the directories found in the specified Git repository (helm-value/scbconnect/*/*). For each directory, an application will be created with the following details:
@@ -90,3 +90,105 @@ The Helm chart and corresponding values.yaml will be used to deploy the applicat
 
 ## Conclusion
 This example demonstrates how to use the Git Generator in Argo CD's ApplicationSet to automatically create multiple applications based on directories in a Git repository. By using dynamic path variables, we can customize the deployment of Helm charts and values to Kubernetes, making the process of managing multiple environments more efficient and automated.
+
+## Example Using a YAML Configuration for ApplicationSet
+The following example demonstrates how to use the list generator in an ApplicationSet to dynamically generate application parameters (env and name).
+
+### YAML Configuration for ApplicationSet
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-applicationset-yaml-list-generators
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elementsYaml: |
+          {{- $appsList := list }}  # Initialize an empty list
+          {{- range .scb.scbconnect.applications }}  # Iterate over applications
+            {{- $env := .env }}  # Store the environment value
+            {{- range .apps }}  # Iterate over the apps
+              {{- $appsList = append $appsList (dict "env" $env "name" .name) }}  # Append env and app name to the list
+            {{- end }}
+          {{- end }}
+          {{- toJson $appsList }}  # Convert the list to JSON format
+  template:
+    metadata:
+      name: '{{ .name }}-{{ .env }}'
+    spec:
+      project: default
+      sources:
+        - repoURL: '{{ .scb.scbconnect.common.helmRepoUrl }}'
+          targetRevision: '{{ .scb.scbconnect.common.helmTargetRevision }}'
+          path: '{{ .scb.scbconnect.common.chart }}'
+          helm:
+            valueFiles:
+              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+        - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
+          targetRevision: main
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .env }}'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+          - DisableHelmChartCache=true
+```
+## Explanation of Key Sections
+
+1. **Initialization of $appsList**:
+```yaml
+{{- $appsList := list }}
+```
+- **This initializes an empty list called $appsList which will be used to store application parameters.**
+
+2. **Iterating over applications**:
+```yaml
+{{- range .scb.scbconnect.applications }}
+```
+- **The range function iterates over the applications defined in your configuration (e.g., dev, sit).**
+
+3. **Storing environment value**:
+```yaml
+{{- $env := .env }}
+```
+- **Stores the environment value (env) of the current application (e.g., "dev" or "sit").**
+
+4. **Iterating over each app in the current environment**:
+```yaml
+{{- range .apps }}
+```
+- **The range function iterates over the apps in the current environment, such as app-be and app-fe.**
+
+5. **Appending app parameters to the list**:
+```yaml
+{{- $appsList = append $appsList (dict "env" $env "name" .name) }}
+```
+- **This appends a dictionary of env and name to the $appsList for each application in the current environment.**
+
+6. **Converting the list to JSON**:
+```yaml
+{{- toJson $appsList }}
+```
+- **This converts the list of application parameters into a JSON array to be used in the Argo CD application generation.**
+
+## Final Output
+- **After running the above template, the generated JSON will look like this:**
+```yaml
+[
+  {"env": "dev", "name": "app-be"},
+  {"env": "dev", "name": "app-fe"},
+  {"env": "sit", "name": "app-be"},
+  {"env": "sit", "name": "app-fe"}
+]
+```
+## Conclusion
+This example shows how to use Go templating in Argo CD's ApplicationSet to dynamically generate application parameters based on a structured YAML configuration. By using list and dict functions, we can create dynamic lists of applications that will be used for generating multiple Argo CD applications. This approach can be extended for more complex use cases and can be adjusted to match various environments and application configurations.
