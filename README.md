@@ -67,20 +67,20 @@ spec:
 - **revision**: Set to HEAD, meaning the latest commit from the default branch will be used.
 - **directories**: Defines a path pattern (helm-value/scbconnect/*/*) to search for directories in the repository that match the pattern. Each matching directory will generate a new application.
 
-2. Application Template
-metadata.name: Dynamically generates the application name from the Git path. path[2] refers to the third element in the path, and path.basename refers to the base name of the directory.
+2. ## Application Template
+**metadata.name**: Dynamically generates the application name from the Git path. path[2] refers to the third element in the path, and path.basename refers to the base name of the directory.
 
-3. Source Configuration for Helm
-repoURL: Specifies the Git repository containing the Helm charts.
+3. ## Source Configuration for Helm
+**repoURL**: Specifies the Git repository containing the Helm charts.
 valueFiles: Uses a dynamic Git path to specify the location of the values.yaml file for the Helm chart.
 
-4. Destination Configuration
-namespace: Dynamically sets the Kubernetes namespace based on the base name of the directory in the Git path.
+4. ## Destination Configuration
+**namespace**: Dynamically sets the Kubernetes namespace based on the base name of the directory in the Git path.
 
-5. Sync Policy
-selfHeal: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.
-prune: Removes resources from the cluster if they are deleted from the Git repository.
-syncOptions: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
+5. ## Sync Policy
+**selfHeal**: Ensures that Argo CD will automatically restore the desired state if any manual changes are made to the application replicas.
+**prune**: Removes resources from the cluster if they are deleted from the Git repository.
+**syncOptions**: Additional options for syncing, such as creating missing namespaces and disabling Helm chart caching.
 
 ## Final Output
 This configuration will result in the creation of multiple Argo CD applications based on the directories found in the specified Git repository (helm-value/scbconnect/*/*). For each directory, an application will be created with the following details:
