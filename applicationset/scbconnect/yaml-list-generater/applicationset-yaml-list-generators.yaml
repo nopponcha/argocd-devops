@@ -24,6 +24,13 @@ spec:
                 {{- end }}
               {{- end }}
               {{- toJson $appsList }}
+            # JSON Result  
+            # [
+            #   { "env": "dev", "name": "app-be" },
+            #   { "env": "qa", "name": "app-be" },
+            #   { "env": "sit", "name": "app-be" }
+            # ]
+
   template:
     metadata:
       name: '{{ .name }}-{{ .env }}'
