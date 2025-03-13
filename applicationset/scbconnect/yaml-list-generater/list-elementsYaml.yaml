@@ -10,7 +10,7 @@ scb:
     applications:
     - env: dev
       apps:
-      # - name: "app-be"
+      - name: "app-be"
       # - name: "app-fe"
     - env: qa
       apps:
