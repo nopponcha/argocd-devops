@@ -11,12 +11,12 @@ scb:
     - env: dev
       apps:
       - name: "app-be"
-      # - name: "app-fe"
+      - name: "app-fe"
     - env: qa
       apps:
       - name: "app-be"
-      # - name: "app-fe"      
+      - name: "app-fe"      
     - env: sit
       apps:
       - name: "app-be"
-      # - name: "app-fe" 
+      - name: "app-fe" 
