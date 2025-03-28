@@ -20,12 +20,11 @@ spec:
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
                 {{- range .clusters }}
-                {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "cluster" .name "appName" .name) }}
-                {{- end }}
+                  {{- range .apps }}
+                    {{- $appsList = append $appsList (dict "env" $env "cluster" .cluster "appName" .name) }}
+                  {{- end }}
                 {{- end }}
               {{- end }}
-              {{- printf "Generated Apps List: %v" $appsList }}
               {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
