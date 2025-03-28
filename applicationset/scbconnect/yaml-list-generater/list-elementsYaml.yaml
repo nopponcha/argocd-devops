@@ -15,10 +15,9 @@ scb:
           - name: 'https://34.126.112.53'
             apps:
               - name: "app-be"
-      # ถ้าไม่มี apps ก็สามารถระบุเป็น [] เพื่อป้องกันไม่ให้เกิดปัญหา
       - env: qa
         clusters:
           - name: 'https://kubernetes.default.svc'
-            apps: []
+            apps: []  # ระบุให้เป็น array ว่างๆ
           - name: 'https://34.126.112.53'
-            apps: []
+            apps: []  # ระบุให้เป็น array ว่างๆ
