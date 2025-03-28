@@ -1,4 +1,3 @@
----
 scb:
   scbconnect:
     common:
@@ -11,22 +10,15 @@ scb:
       - env: dev
         clusters:
           - name: 'https://kubernetes.default.svc'
+            apps:
+              - name: "app-be"
           - name: 'https://34.126.112.53'
-        apps:
-          - name: "app-be"
-          # - name: "app-fe"
-        # - name: "app-fe"
-    # - env: qa
-    #   clusters: 
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
-    # - env: sit
-    #   clusters:
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
+            apps:
+              - name: "app-be"
+      # ถ้าไม่มี apps ก็สามารถระบุเป็น [] เพื่อป้องกันไม่ให้เกิดปัญหา
+      - env: qa
+        clusters:
+          - name: 'https://kubernetes.default.svc'
+            apps: []
+          - name: 'https://34.126.112.53'
+            apps: []

@@ -20,9 +20,13 @@ spec:
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
                 {{- range .clusters }}
-                {{- end }}
-                {{- range .apps }}
+                  {{- if .apps }}  # ตรวจสอบว่า 'apps' มีอยู่หรือไม่
+                    {{- range .apps }}
                       {{- $appsList = append $appsList (dict "env" $env "cluster" .name "appName" .name) }}
+                    {{- end }}
+                  {{- else }}
+                    {{- printf "No apps found for environment: %s, cluster: %s\n" $env .name }}
+                  {{- end }}
                 {{- end }}
               {{- end }}
               {{- toJson $appsList | nindent 2 }}
