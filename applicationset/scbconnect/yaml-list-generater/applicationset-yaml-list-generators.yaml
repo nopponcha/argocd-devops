@@ -17,17 +17,19 @@ spec:
         - list:
             elementsYaml: |
               {{- $appsList := list }}
-              {{- range $.scb.scbconnect.applications }}
+              {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range $.scb.scbconnect.clusters }}
-                  {{- $cluster := .name }}
-                  {{- range .apps }}
-                    {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" $cluster) }}
-                  {{- end }}
+                {{- range .apps }}
+                  {{- $appsList = append $appsList (dict "env" $env "name" .name) }}
                 {{- end }}
               {{- end }}
               {{- toJson $appsList }}
-
+            # JSON Result  
+            # [
+            #   { "env": "dev", "name": "app-be" },
+            #   { "env": "qa", "name": "app-be" },
+            #   { "env": "sit", "name": "app-be" }
+            # ]
 
   template:
     metadata:
