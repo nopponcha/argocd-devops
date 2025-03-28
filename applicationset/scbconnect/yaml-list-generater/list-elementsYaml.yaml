@@ -11,7 +11,7 @@ scb:
         clusters:
           - name: 'https://kubernetes.default.svc'
             apps:
-            - name: "app-be"
+              - name: "app-be"
           - name: 'https://34.126.112.53'
             apps:
-            - name: "app-fe"
+              - name: "app-fe"
