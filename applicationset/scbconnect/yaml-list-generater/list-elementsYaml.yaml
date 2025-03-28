@@ -1,4 +1,3 @@
----
 scb:
   scbconnect:
     common:
@@ -9,23 +8,10 @@ scb:
       valuesPath: helm-value/scbconnect
     applications:
       - env: dev
-        - clusters:
-          - name: 'https://kubernetes.default.svc'
-          - name: 'https://34.126.112.53'
-        - apps:
-          - name: "app-be"
-        # - name: "app-fe"
-    # - env: qa
-    #   clusters: 
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
-    # - env: sit
-    #   clusters:
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
+        clusters:
+          - clustername: 'https://kubernetes.default.svc'
+            apps:
+              - name: "app-be"
+          - clustername: 'https://34.126.112.53'
+            apps:
+              - name: "app-fe"

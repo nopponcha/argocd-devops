@@ -19,9 +19,9 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range .apps }}
-                  {{- range .clusters }}
-                        {{- $appsList = append $appsList (dict "env" $env "cluster" .name) }}
+                {{- range .clusters }}
+                  {{- range .apps }}
+                        {{- $appsList = append $appsList (dict "env" $env "cluster" .name "name" .name) }}
                   {{- end }}
                 {{- end }}  
               {{- end }}
