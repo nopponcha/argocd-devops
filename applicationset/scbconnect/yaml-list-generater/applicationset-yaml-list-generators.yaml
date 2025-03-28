@@ -19,11 +19,11 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- $apps .apps.name }}
-                {{- range .clusters }}
-                      {{- $appsList = append $appsList (dict "env" $env "cluster" .name "names" $apps) }}
+                {{- range .apps }}
                 {{- end }}
-                {{- end }}
+                  {{- range .clusters }}
+                        {{- $appsList = append $appsList (dict "env" $env "cluster" .cluster "names" .name) }}
+                  {{- end }}
               {{- end }}
               {{- toJson $appsList | nindent 2 }}
   template:

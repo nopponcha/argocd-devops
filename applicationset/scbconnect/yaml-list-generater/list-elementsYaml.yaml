@@ -10,8 +10,8 @@ scb:
     applications:
       - env: dev
         clusters:
-          - name: 'https://kubernetes.default.svc'
-          - name: 'https://34.126.112.53'
+          - cluster: 'https://kubernetes.default.svc'
+          - cluster: 'https://34.126.112.53'
         apps:
           - name: "app-be"
           # - name: "app-fe"
