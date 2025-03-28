@@ -19,21 +19,23 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "name" .name) }}
+                {{- range .clusters }}
+                  {{- $cluster := . }}
+                  {{- range .apps }}
+                    {{- $appName := .name }}
+                    {{- $appData := dict "env" $env "name" $appName "cluster" $cluster }}
+                    {{- $appsList = append $appsList $appData }}
+                  {{- end }}
                 {{- end }}
               {{- end }}
-              {{- toJson $appsList}}
-            # JSON Result  
-            # [
-            #   { "env": "dev", "name": "app-be" },
-            #   { "env": "qa", "name": "app-be" },
-            #   { "env": "sit", "name": "app-be" }
-            # ]
+
+              {{- toJson $appsList }}
+
+
 
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ .name }}-{{ .env }}-{{ .cluster }}'
     spec:
       project: default
       sources:
@@ -47,7 +49,7 @@ spec:
           targetRevision: main
           ref: values
       destination:
-        server: https://34.126.112.53
+        server: '{{ .cluster }}'
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
