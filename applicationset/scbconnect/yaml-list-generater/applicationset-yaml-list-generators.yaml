@@ -20,13 +20,16 @@ spec:
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
                 {{- range .clusters }}
-                  {{- range .apps }}
-                    {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" .name) }}
+                  {{- if .apps }}  # ตรวจสอบว่า 'apps' มีอยู่หรือไม่
+                    {{- range .apps }}
+                      {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" .name) }}
+                    {{- end }}
+                  {{- else }}
+                    {{- printf "No apps found for environment: %s, cluster: %s\n" $env .name }}
                   {{- end }}
                 {{- end }}
               {{- end }}
               {{- toJson $appsList | nindent 2 }}
-
 
   template:
     metadata:
