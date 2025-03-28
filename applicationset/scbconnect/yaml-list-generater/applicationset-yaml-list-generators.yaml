@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-multi-cluster
+  name: demo-helm-applicationset-yaml-list-generators-scbconnect
   namespace: argocd
 spec:
   goTemplate: true
@@ -19,12 +19,17 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- $clusters := .clusters }}
                 {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "name" .name "clusters" $clusters) }}
+                  {{- $appsList = append $appsList (dict "env" $env "name" .name) }}
                 {{- end }}
               {{- end }}
-              {{- toJson $appsList }}
+              {{- toJson $appsList}}
+            # JSON Result  
+            # [
+            #   { "env": "dev", "name": "app-be" },
+            #   { "env": "qa", "name": "app-be" },
+            #   { "env": "sit", "name": "app-be" }
+            # ]
 
   template:
     metadata:
@@ -42,7 +47,7 @@ spec:
           targetRevision: main
           ref: values
       destination:
-        server: '{{ .clusters }}'
+        server: https://34.126.112.53
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
