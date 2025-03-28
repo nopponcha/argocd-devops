@@ -6,11 +6,11 @@ scb:
       helmRepoUrl: https://github.com/nopponcha/helm-chart.git
       helmTargetRevision: main
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
-      valuesPath: helm-value/scbconnect
+      valuesPath: helm-value/scbconnect 
+    clusters:
+      - https://kubernetes.default.svc
     applications:
     - env: dev
-      clusters: 
-        - name: 'https://kubernetes.default.svc'
       apps:
         - name: "app-be"
         # - name: "app-fe"

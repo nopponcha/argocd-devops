@@ -17,25 +17,25 @@ spec:
         - list:
             elementsYaml: |
               {{- $appsList := list }}
+
+              {{- if not .scb.scbconnect.clusters }}
+                {{- fail "Error: 'clusters' not found in .scb.scbconnect" }}
+              {{- end }}
+
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range .clusters }}
+                {{- range $.scb.scbconnect.clusters }}
                   {{- $cluster := . }}
                   {{- range .apps }}
-                    {{- $appName := .name }}
-                    {{- $appData := dict "env" $env "name" $appName "cluster" $cluster }}
-                    {{- $appsList = append $appsList $appData }}
+                    {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" $cluster) }}
                   {{- end }}
                 {{- end }}
               {{- end }}
-
               {{- toJson $appsList }}
-
-
 
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}-{{ .cluster }}'
+      name: '{{ .name }}-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
     spec:
       project: default
       sources:
@@ -49,7 +49,7 @@ spec:
           targetRevision: main
           ref: values
       destination:
-        server: '{{ .cluster }}'
+        server: https://34.126.112.53
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
