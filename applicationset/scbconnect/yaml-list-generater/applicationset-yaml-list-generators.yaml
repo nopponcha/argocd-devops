@@ -21,7 +21,7 @@ spec:
                 {{- $env := .env }}
                 {{- range .clusters }}
                 {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "appName" .name "cluster" .name) }}
+                  {{- $appsList = append $appsList (dict "env" $env "cluster" .name "appName" .name) }}
                 {{- end }}
                 {{- end }}
               {{- end }}
