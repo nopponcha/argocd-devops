@@ -1,3 +1,4 @@
+---
 scb:
   scbconnect:
     common:
@@ -21,3 +22,4 @@ scb:
             apps: []  # ระบุให้เป็น array ว่างๆ
           - name: 'https://34.126.112.53'
             apps: []  # ระบุให้เป็น array ว่างๆ
+  

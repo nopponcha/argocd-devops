@@ -29,7 +29,7 @@ spec:
                   {{- end }}
                 {{- end }}
               {{- end }}
-              {{- toJson $appsList | nindent 2 }}
+              {{- toJson $appsList }}
   template:
     metadata:
       name: '{{ .appName }}-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
