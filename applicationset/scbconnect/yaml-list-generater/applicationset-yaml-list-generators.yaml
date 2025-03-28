@@ -19,21 +19,18 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "name" .name) }}
+                {{- range .clusters }}
+                  {{- range .apps }}
+                    {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" .name) }}
+                  {{- end }}
                 {{- end }}
               {{- end }}
-              {{- toJson $appsList }}
-            # JSON Result  
-            # [
-            #   { "env": "dev", "name": "app-be" },
-            #   { "env": "qa", "name": "app-be" },
-            #   { "env": "sit", "name": "app-be" }
-            # ]
+              {{- toJson $appsList | nindent 2 }}
+
 
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}'
+      name: '{{ .name }}-{{ .env }}-{{ .cluster }}'
     spec:
       project: default
       sources:
@@ -47,7 +44,7 @@ spec:
           targetRevision: main
           ref: values
       destination:
-        server: https://34.126.112.53
+        server: '{{ .cluster }}'
         namespace: '{{ .env }}'
       syncPolicy:
         automated:
