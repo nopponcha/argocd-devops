@@ -21,10 +21,11 @@ spec:
                 {{- $env := .env }}
                 {{- range .clusters }}
                 {{- range .apps }}
-                  {{- $appsList = append $appsList (dict "env" $env "cluster" .name "appName" .name) }}
+                  {{- $appsList = append $appsList (dict "env" $env "appName" .name "cluster" .name) }}
                 {{- end }}
                 {{- end }}
               {{- end }}
+              {{- printf "Generated Apps List: %v" $appsList }}
               {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
