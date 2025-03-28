@@ -1,4 +1,3 @@
----
 scb:
   scbconnect:
     common:
@@ -7,25 +6,18 @@ scb:
       helmTargetRevision: main
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
       valuesPath: helm-value/scbconnect
+    clusters:
+      - name: "kubernetes.default.svc"
+        apps: []
+      - name: "34.126.112.53"
+        apps: []
+      - name: "34.101.190.120"
+        apps: []
     applications:
-    - env: dev
-      clusters: 
-        - name: 'https://kubernetes.default.svc'
-        - name: 'https://34.126.112.53'
-      apps:
-        - name: "app-be"
-        # - name: "app-fe"
-    # - env: qa
-    #   clusters: 
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
-    # - env: sit
-    #   clusters:
-    #     - https://kubernetes.default.svc
-    #     - https://34.126.112.53
-    #   apps:
-    #     - name: "app-be"
-    #     - name: "app-fe"
+      - env: dev
+        apps:
+          - name: "app-be"
+      - env: qa
+        apps: []
+      - env: sit
+        apps: []
