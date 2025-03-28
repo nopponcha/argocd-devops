@@ -9,14 +9,23 @@ scb:
       valuesPath: helm-value/scbconnect
     applications:
     - env: dev
+      clusters: 
+        - name: 'https://kubernetes.default.svc'
+        - name: 'https://34.126.112.53'
       apps:
-      - name: "app-be"
-      # - name: "app-fe"
-    - env: qa
-      apps:
-      # - name: "app-be"
-      # - name: "app-fe"      
-    - env: sit
-      apps:
-      # - name: "app-be"
-      # - name: "app-fe" 
+        - name: "app-be"
+        - name: "app-fe"
+    # - env: qa
+    #   clusters: 
+    #     - https://kubernetes.default.svc
+    #     - https://34.126.112.53
+    #   apps:
+    #     - name: "app-be"
+    #     - name: "app-fe"
+    # - env: sit
+    #   clusters:
+    #     - https://kubernetes.default.svc
+    #     - https://34.126.112.53
+    #   apps:
+    #     - name: "app-be"
+    #     - name: "app-fe"
