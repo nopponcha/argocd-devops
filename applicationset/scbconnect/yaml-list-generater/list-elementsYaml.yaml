@@ -14,7 +14,7 @@ scb:
           - name: 'https://34.126.112.53'
         apps:
           - name: "app-be"
-          # - name: "app-fe"
+          - name: "app-fe"
         # - name: "app-fe"
     # - env: qa
     #   clusters: 

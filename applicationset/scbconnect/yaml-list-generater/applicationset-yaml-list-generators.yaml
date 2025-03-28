@@ -19,21 +19,16 @@ spec:
               {{- $appsList := list }}
               {{- range .scb.scbconnect.applications }}
                 {{- $env := .env }}
-                {{- range .clusters }}
-                  {{- if .apps }}  # ตรวจสอบว่า 'apps' มีอยู่หรือไม่
-                    {{- range .apps }}
-                      {{- $appsList = append $appsList (dict "env" $env "name" .name "cluster" .name) }}
-                    {{- end }}
-                  {{- else }}
-                    {{- printf "No apps found for environment: %s, cluster: %s\n" $env .name }}
-                  {{- end }}
+                {{- range .apps }}
                 {{- end }}
+                  {{- range .clusters }}
+                        {{- $appsList = append $appsList (dict "env" $env "names" .name "cluster" .name) }}
+                  {{- end }}
               {{- end }}
               {{- toJson $appsList | nindent 2 }}
-
   template:
     metadata:
-      name: '{{ .name }}-{{ .env }}-{{ .cluster }}'
+      name: 'sss-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
     spec:
       project: default
       sources:
@@ -42,7 +37,7 @@ spec:
           path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .name }}/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .names }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
