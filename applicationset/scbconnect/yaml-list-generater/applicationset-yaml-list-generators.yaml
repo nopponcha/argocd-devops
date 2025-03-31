@@ -16,16 +16,18 @@ spec:
               - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
         - list:
             elementsYaml: |
-              {{- $appsList := list }}
-              {{- range .scb.scbconnect.applications }}
-                {{- $env := .env }}
-                {{- range .apps }}
-                {{- end }}
+                {{- $appsList := list }}
+                {{- range .scb.scbconnect.applications }}
+                  {{- $env := .env }}
+                  {{- $apps := .apps }}  
                   {{- range .clusters }}
-                        {{- $appsList = append $appsList (dict "env" $env "cluster" .name) }}
+                    {{- $cluster := .name }}
+                    {{- range $apps }}  
+                      {{- $appsList = append $appsList (dict "env" $env "service" .names "cluster" $cluster) }}
+                    {{- end }}
                   {{- end }}
-              {{- end }}
-              {{- toJson $appsList | nindent 2 }}
+                {{- end }}
+                {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
       name: 'app-be-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
