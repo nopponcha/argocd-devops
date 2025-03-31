@@ -23,7 +23,7 @@ spec:
                   {{- range .clusters }}
                     {{- $cluster := .name }}
                     {{- range $apps }}  
-                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .names "cluster" $cluster) }}
+                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .name "cluster" $cluster) }}
                     {{- end }}
                   {{- end }}
                 {{- end }}
