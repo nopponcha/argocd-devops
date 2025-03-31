@@ -17,7 +17,7 @@ scb:
         apps:
           - name: "app-be"
           - name: "app-fe"
-    - env: sit
+      - env: sit
         clusters:
           - name: 'https://kubernetes.default.svc'
             clustername: "minikube"
@@ -26,7 +26,7 @@ scb:
         apps:
           - name: "app-be"
           - name: "app-fe"
-    - env: uat
+      - env: uat
         clusters:
           - name: 'https://34.101.190.120'
             clustername: "gke-uat"
