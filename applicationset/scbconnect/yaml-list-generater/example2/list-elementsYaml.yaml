@@ -15,6 +15,6 @@ scb:
             apps:
               - name: "app-fe"
           - name: 'https://34.126.112.53'
-            clustername: "minikube"
+            clustername: "gke-nonprod"
             apps:
               - name: "app-be"
