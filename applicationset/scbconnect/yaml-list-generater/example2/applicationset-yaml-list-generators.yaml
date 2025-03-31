@@ -17,8 +17,8 @@ spec:
         - list:
             elementsYaml: |
                 {{- $appsList := list }}
-                {{- range .scb.scbconnect.applications }}
                 {{- $projectname := index .scb | keys | first }}
+                {{- range .scb.scbconnect.applications }}
                   {{- $env := .env }}
                   {{- range .clusters }}
                   {{- $cluster := .name }}
