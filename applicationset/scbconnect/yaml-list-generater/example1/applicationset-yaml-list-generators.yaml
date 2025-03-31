@@ -17,6 +17,7 @@ spec:
         - list:
             elementsYaml: |
                 {{- $appsList := list }}
+                {{- $projectname := index .scb | keys | first }}
                 {{- range .scb.scbconnect.applications }}
                   {{- $env := .env }}
                   {{- $apps := .apps }}  
@@ -31,7 +32,7 @@ spec:
                 {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
-      name: '{{ .env | lower }}-{{ .servicename | lower }}-{{ .clustername | lower }}'
+      name: '{{ $projectname | lower }}-{{ .env | lower }}-{{ .servicename | lower }}-{{ .clustername | lower }}'
     spec:
       project: default
       sources:

@@ -17,19 +17,19 @@ scb:
         apps:
           - name: "app-be"
           - name: "app-fe"
-      - env: sit
-        clusters:
-          - name: 'https://kubernetes.default.svc'
-            clustername: "minikube"
-          - name: 'https://34.126.112.53'
-            clustername: "gke-nonprod"
-        apps:
-          - name: "app-be"
-          - name: "app-fe"
-      - env: uat
-        clusters:
-          - name: 'https://34.101.190.120'
-            clustername: "gke-uat"
-        apps:
-          - name: "app-be"
-          - name: "app-fe"
+      # - env: sit
+      #   clusters:
+      #     - name: 'https://kubernetes.default.svc'
+      #       clustername: "minikube"
+      #     - name: 'https://34.126.112.53'
+      #       clustername: "gke-nonprod"
+      #   apps:
+      #     - name: "app-be"
+      #     - name: "app-fe"
+      # - env: uat
+      #   clusters:
+      #     - name: 'https://34.101.190.120'
+      #       clustername: "gke-uat"
+      #   apps:
+      #     - name: "app-be"
+      #     - name: "app-fe"
