@@ -22,7 +22,7 @@ spec:
                 {{- range .apps }}
                 {{- end }}
                   {{- range .clusters }}
-                        {{- $appsList = append $appsList (dict "env" $env "names" .name "cluster" .name) }}
+                        {{- $appsList = append $appsList (dict "env" $env "cluster" .name) }}
                   {{- end }}
               {{- end }}
               {{- toJson $appsList | nindent 2 }}
