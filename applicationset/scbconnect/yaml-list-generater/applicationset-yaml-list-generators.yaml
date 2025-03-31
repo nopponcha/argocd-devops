@@ -23,14 +23,14 @@ spec:
                   {{- range .clusters }}
                     {{- $cluster := .name }}
                     {{- range $apps }}  
-                      {{- $appsList = append $appsList (dict "env" $env "service" .names "cluster" $cluster) }}
+                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .names "cluster" $cluster) }}
                     {{- end }}
                   {{- end }}
                 {{- end }}
                 {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
-      name: 'app-be-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
+      name: '{{ .serviceName }}-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
     spec:
       project: default
       sources:
@@ -39,7 +39,7 @@ spec:
           path: '{{ .scb.scbconnect.common.chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/app-be/{{ .env }}/values.yaml'
+              - '$values/helm-value/scbconnect/{{ .serviceName }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
