@@ -19,13 +19,12 @@ spec:
                 {{- $appsList := list }}
                 {{- range .scb.scbconnect.applications }}
                   {{- $env := .env }}
-                  {{- $apps := .apps }}  
                   {{- range .clusters }}
-                    {{- $cluster := .name }}
-                    {{- $clustername := .clusterName }}
-                    {{- range $apps }}  
-                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .name "cluster" $cluster "clustername" $clustername) }}
-                    {{- end }}
+                  {{- $cluster := .name }}
+                  {{- $clustername := .clustername }}
+                      {{- range .apps }}
+                        {{- $appsList = append $appsList (dict "env" $env "cluster" $cluster "clustername" $clustername "appName" .name) }}
+                      {{- end }}
                   {{- end }}
                 {{- end }}
                 {{- toJson $appsList | nindent 2 }}

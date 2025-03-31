@@ -1,0 +1,20 @@
+---
+scb:
+  scbconnect:
+    common:
+      chart: charts
+      helmRepoUrl: https://github.com/nopponcha/helm-chart.git
+      helmTargetRevision: main
+      helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
+      valuesPath: helm-value/scbconnect
+    applications:
+      - env: dev
+        clusters:
+          - name: 'https://kubernetes.default.svc'
+            clustername: "minikube"
+            apps:
+              - name: "app-fe"
+          - name: 'https://34.126.112.53'
+            clustername: "minikube"
+            apps:
+              - name: "app-be"
