@@ -22,15 +22,16 @@ spec:
                   {{- $apps := .apps }}  
                   {{- range .clusters }}
                     {{- $cluster := .name }}
+                    {{- $clustername := .name }}
                     {{- range $apps }}  
-                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .name "cluster" $cluster) }}
+                      {{- $appsList = append $appsList (dict "env" $env "serviceName" .name "cluster" $cluster "clustername" $clustername) }}
                     {{- end }}
                   {{- end }}
                 {{- end }}
                 {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
-      name: '{{ .serviceName }}-{{ .env }}-{{ .cluster | replace "https://" "" | replace "." "-" }}'
+      name: '{{ .env | upper }}-{{ .serviceName }}-{{ .clustername }}'
     spec:
       project: default
       sources:
