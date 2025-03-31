@@ -24,15 +24,16 @@ spec:
                   {{- range .clusters }}
                     {{- $cluster := .name }}
                     {{- $clustername := .clustername }}
-                    {{- range $apps }}  
-                      {{- $appsList = append $appsList (dict "env" $env "servicename" .name "cluster" $cluster "clustername" $clustername) }}
+                    {{- range $apps }}
+                      {{- $name := printf "%s-%s-%s-%s" $projectname $env .name $clustername | lower }}  
+                      {{- $appsList = append $appsList (dict "name" $name "projectname" $projectname "env" $env "servicename" .name "cluster" $cluster "clustername" $clustername) }}
                     {{- end }}
                   {{- end }}
                 {{- end }}
                 {{- toJson $appsList | nindent 2 }}
   template:
     metadata:
-      name: '{{ $projectname | lower }}-{{ .env | lower }}-{{ .servicename | lower }}-{{ .clustername | lower }}'
+      name: '{{ .name }}'
     spec:
       project: default
       sources:
