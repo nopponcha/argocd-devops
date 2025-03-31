@@ -13,7 +13,7 @@ spec:
             repoURL: https://github.com/nopponcha/argocd-devops.git
             revision: main
             files:
-              - path: applicationset/scbconnect/yaml-list-generater/list-elementsYaml.yaml
+              - path: applicationset/scbconnect/yaml-list-generater/example2/list-elementsYaml.yaml
         - list:
             elementsYaml: |
                 {{- $appsList := list }}
