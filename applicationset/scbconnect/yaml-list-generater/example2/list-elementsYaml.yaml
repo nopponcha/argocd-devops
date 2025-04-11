@@ -8,12 +8,12 @@ scb:
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
       valuesPath: helm-value/scbconnect
     applications:
-      # - env: dev
-      #   clusters:
-      #     - name: 'https://kubernetes.default.svc'
-      #       clustername: "minikube"
-      #       apps:
-      #         - name: "app-fe"
+      - env: dev
+        clusters:
+          - name: 'https://kubernetes.default.svc'
+            clustername: "minikube"
+            apps:
+              - name: "app-fe"
       # - env: sit
       #   clusters:
       #     - name: 'https://34.126.112.53'

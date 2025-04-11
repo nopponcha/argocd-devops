@@ -42,10 +42,10 @@ spec:
             selector:
               matchExpressions:
                 - key: "env"
-                  operator: NotIn
+                  operator: In
                   values:
-                    - dev
-                    - sit
+                    # - dev
+                    # - sit
                     - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
   template:
     metadata:
