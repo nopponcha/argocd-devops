@@ -15,7 +15,6 @@ scb:
           - name: 'https://34.126.112.53'
             clustername: "gke-nonprod" 
             apps:
-              - name: "app-fe"
               - name: "app-be"
       # - env: sit
       #   clusters:
