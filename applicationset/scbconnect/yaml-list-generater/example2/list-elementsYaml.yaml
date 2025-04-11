@@ -11,11 +11,13 @@ scb:
       - env: dev
         clusters:
           - name: 'https://kubernetes.default.svc'
-            clustername: "minikube"
-          - name: 'https://34.126.112.53'
-            clustername: "gke-nonprod" 
+            clustername: "nonpci"
             apps:
               - name: "app-be"
+          - name: 'https://34.126.112.53'
+            clustername: "pci" 
+            apps:
+              - name: "app-fe"
       # - env: sit
       #   clusters:
       #     - name: 'https://34.126.112.53'
