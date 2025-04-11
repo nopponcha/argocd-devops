@@ -7,33 +7,69 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/nopponcha/argocd-demo.git
-        revision: HEAD
-        directories:
-          - path: helm-value/scbconnect/*/*
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/nopponcha/argocd-demo.git
+              revision: HEAD
+              directories:
+                - path: helm-value/scbconnect/*/*
+          - list:
+              elements:
+              #DEV
+                - env: dev
+                  cluster: "https://kubernetes.default.svc"
+                  clustername: minikube-dev
+                - env: dev
+                  cluster: "https://34.126.112.53"
+                  clustername: gke-nonprod
+              #QA
+                - env: qa
+                  cluster: "https://kubernetes.default.svc"
+                  clustername: minikube-qa
+                - env: qa
+                  cluster: "https://34.126.112.53"
+                  clustername: gke-nonprod
+              #SIT
+                - env: sit
+                  cluster: "https://34.126.112.53"
+                  clustername: gke-nonprod
+              #UAT
+                - env: uat
+                  cluster: "https://34.101.190.120"
+                  clustername: gke-uat
+
+            selector:
+              matchExpressions:
+                - key: "env"
+                  operator: NotIn
+                  values:
+                    - dev
+                    - sit
+                    - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
   template:
     metadata:
-      name: "{{path[2]}}-{{path.basename}}"
+      name: "{{env}}-{{path[2]}}-{{clustername}}"  # เช่น app-be-dev-minikube
     spec:
       project: default
       sources:
-      - repoURL: https://github.com/nopponcha/helm-chart.git
-        targetRevision: HEAD
-        path: charts
-        helm:
-          valueFiles:
-            - "$values/helm-value/scbconnect/{{path[2]}}/{{path.basename}}/values.yaml"   
-      - repoURL: https://github.com/nopponcha/argocd-demo.git
-        targetRevision: HEAD
-        ref: values
+        - repoURL: https://github.com/nopponcha/helm-chart.git
+          targetRevision: HEAD
+          path: charts
+          helm:
+            valueFiles:
+              - "$values/helm-value/scbconnect/{{path[2]}}/{{env}}/values.yaml"
+        - repoURL: https://github.com/nopponcha/argocd-demo.git
+          targetRevision: HEAD
+          ref: values
       destination:
-        server: https://kubernetes.default.svc
-        namespace: "{{path.basename}}"
+        server: "{{cluster}}"
+        namespace: "{{path[2]}}"
       syncPolicy:
         automated:
-          selfHeal: true # if manually scale up replicas ,its will scale down to Desired State (git repo)
-          prune: true # if = true manifest deleted the Actual State will be deleted
+          selfHeal: true
+          prune: true
         syncOptions:
-         - CreateNamespace=true       
-         - DisableHelmChartCache=true 
+          - CreateNamespace=true
+          - DisableHelmChartCache=true
+          
