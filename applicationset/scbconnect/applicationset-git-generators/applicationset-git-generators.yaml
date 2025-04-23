@@ -44,9 +44,9 @@ spec:
                 - key: "env"
                   operator: In
                   values:
-                    # - dev
+                    - dev
                     # - sit
-                    - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
+                    # - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
   template:
     metadata:
       name: "{{env}}-{{path[2]}}-{{clustername}}"  # เช่น app-be-dev-minikube
