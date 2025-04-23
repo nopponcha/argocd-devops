@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-applicationset-git-generators-merchant
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/nopponcha/argocd-demo.git
+        revision: main
+        directories:
+          - path: configs/*/*
+  template:
+    metadata:
+      name: "{{path[1]}}-{{path.basename}}"
+    spec:
+      project: default
+      sources:
+      - repoURL: https://github.com/nopponcha/helm-chart.git
+        targetRevision: main
+        path: charts
+        helm:
+          valueFiles:
+            - "$values/configs/{{path[1]}}/{{path.basename}}/values.yaml"   
+      - repoURL: https://github.com/nopponcha/argocd-demo.git
+        targetRevision: main
+        ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
