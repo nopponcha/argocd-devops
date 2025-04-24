@@ -58,7 +58,7 @@ spec:
           path: argo-cd/charts
           helm:
             valueFiles:
-              - "$values/argo-cd/helm-value/scbconnect/{{path[2]}}/{{env}}/values.yaml"
+              - "$values/argo-cd/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
         - repoURL: https://github.com/nopponcha/argocd-demo.git
           targetRevision: HEAD
           ref: values
