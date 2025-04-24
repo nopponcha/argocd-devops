@@ -13,7 +13,7 @@ spec:
               repoURL: https://github.com/nopponcha/argocd-demo.git
               revision: HEAD
               directories:
-                - path: helm-value/scbconnect/*/*
+                - path: argo-cd/helm-value/scbconnect/*/*
           - list:
               elements:
               #DEV
@@ -58,7 +58,7 @@ spec:
           path: charts
           helm:
             valueFiles:
-              - "$values/helm-value/scbconnect/{{path[2]}}/{{env}}/values.yaml"
+              - "$values/argo-cd/helm-value/scbconnect/{{path[2]}}/{{env}}/values.yaml"
         - repoURL: https://github.com/nopponcha/argocd-demo.git
           targetRevision: HEAD
           ref: values
