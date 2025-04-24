@@ -55,7 +55,7 @@ spec:
       sources:
         - repoURL: https://github.com/nopponcha/helm-chart.git
           targetRevision: HEAD
-          path: charts
+          path: argo-cd/charts
           helm:
             valueFiles:
               - "$values/argo-cd/helm-value/scbconnect/{{path[2]}}/{{env}}/values.yaml"
