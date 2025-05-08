@@ -13,23 +13,23 @@ spec:
               repoURL: https://github.com/nopponcha/argocd-demo.git
               revision: HEAD
               directories:
-                - path: argo-cd/helm-value/scbconnect/*/*
+                - path: argo-rollout/helm-value/scbconnect/*/*
           - list:
               elements:
               #DEV
                 - env: dev
                   cluster: "https://kubernetes.default.svc"
                   clustername: minikube
-                - env: dev
-                  cluster: "https://34.126.112.53"
-                  clustername: gke-nonprod
+                # - env: dev
+                #   cluster: "https://34.126.112.53"
+                #   clustername: gke-nonprod
               #QA
                 - env: qa
                   cluster: "https://kubernetes.default.svc"
                   clustername: minikube
-                - env: qa
-                  cluster: "https://34.126.112.53"
-                  clustername: gke-nonprod
+                # - env: qa
+                #   cluster: "https://34.126.112.53"
+                #   clustername: gke-nonprod
               #SIT
                 - env: sit
                   cluster: "https://34.126.112.53"
@@ -55,10 +55,10 @@ spec:
       sources:
         - repoURL: https://github.com/nopponcha/helm-chart.git
           targetRevision: HEAD
-          path: argo-cd/charts
+          path: argo-rollout/charts/bluegreen
           helm:
             valueFiles:
-              - "$values/argo-cd/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
+              - "$values/argo-rollout/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
         - repoURL: https://github.com/nopponcha/argocd-demo.git
           targetRevision: HEAD
           ref: values
