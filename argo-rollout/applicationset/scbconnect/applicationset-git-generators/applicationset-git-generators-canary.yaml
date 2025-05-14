@@ -55,7 +55,7 @@ spec:
       sources:
         - repoURL: https://github.com/nopponcha/helm-chart.git
           targetRevision: HEAD
-          path: argo-rollout/charts/bluegreen
+          path: argo-rollout/charts/canary
           helm:
             valueFiles:
               - "$values/argo-rollout/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
