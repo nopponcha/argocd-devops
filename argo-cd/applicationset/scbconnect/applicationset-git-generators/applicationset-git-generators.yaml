@@ -20,9 +20,9 @@ spec:
                 - env: dev
                   cluster: "https://kubernetes.default.svc"
                   clustername: minikube
-                # - env: dev
-                #   cluster: "https://34.126.112.53"
-                #   clustername: gke-nonprod
+                - env: dev
+                  cluster: "https://34.126.112.53"
+                  clustername: gke-nonprod
               #QA
                 - env: qa
                   cluster: "https://kubernetes.default.svc"
