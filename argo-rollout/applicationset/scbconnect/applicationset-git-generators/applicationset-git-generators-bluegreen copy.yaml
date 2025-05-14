@@ -1,0 +1,75 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-applicationset-git-generators-scbconnect
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/nopponcha/argocd-demo.git
+              revision: HEAD
+              directories:
+                - path: argo-rollout/helm-value/scbconnect/*/*
+          - list:
+              elements:
+              #DEV
+                - env: dev
+                  cluster: "https://kubernetes.default.svc"
+                  clustername: minikube
+                # - env: dev
+                #   cluster: "https://34.126.112.53"
+                #   clustername: gke-nonprod
+              #QA
+                - env: qa
+                  cluster: "https://kubernetes.default.svc"
+                  clustername: minikube
+                # - env: qa
+                #   cluster: "https://34.126.112.53"
+                #   clustername: gke-nonprod
+              #SIT
+                - env: sit
+                  cluster: "https://34.126.112.53"
+                  clustername: gke-nonprod
+              #UAT
+                - env: uat
+                  cluster: "https://34.101.190.120"
+                  clustername: gke-uat
+
+            selector:
+              matchExpressions:
+                - key: "env"
+                  operator: In
+                  values:
+                    - dev
+                    # - sit
+                    # - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
+  template:
+    metadata:
+      name: "{{env}}-{{path[3]}}-{{clustername}}"  # เช่น app-be-dev-minikube
+    spec:
+      project: default
+      sources:
+        - repoURL: https://github.com/nopponcha/helm-chart.git
+          targetRevision: HEAD
+          path: argo-rollout/charts/canary
+          helm:
+            valueFiles:
+              - "$values/argo-rollout/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
+        - repoURL: https://github.com/nopponcha/argocd-demo.git
+          targetRevision: HEAD
+          ref: values
+      destination:
+        server: "{{cluster}}"
+        namespace: "{{path[2]}}-{{env}}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+          - DisableHelmChartCache=true
+          
