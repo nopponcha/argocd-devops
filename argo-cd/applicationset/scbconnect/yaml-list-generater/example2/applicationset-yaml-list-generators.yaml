@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-yaml-list-generators-scbconnect
+  name: demo-helm-applicationset-yaml-list-generators-ironman
   namespace: argocd
 spec:
   goTemplate: true
@@ -13,12 +13,12 @@ spec:
             repoURL: https://github.com/nopponcha/argocd-devops.git
             revision: main
             files:
-              - path: applicationset/scbconnect/yaml-list-generater/example2/list-elementsYaml.yaml
+              - path: applicationset/ironman/yaml-list-generater/example2/list-elementsYaml.yaml
         - list:
             elementsYaml: |
                 {{- $appsList := list }}
                 {{- $projectname := index .scb | keys | first }}
-                {{- range .scb.scbconnect.applications }}
+                {{- range .scb.ironman.applications }}
                   {{- $env := .env }}
                   {{- range .clusters }}
                   {{- $cluster := .name }}
@@ -36,13 +36,13 @@ spec:
     spec:
       project: default
       sources:
-        - repoURL: '{{ .scb.scbconnect.common.helmRepoUrl }}'
-          targetRevision: '{{ .scb.scbconnect.common.helmTargetRevision }}'
-          path: '{{ .scb.scbconnect.common.chart }}'
+        - repoURL: '{{ .scb.ironman.common.helmRepoUrl }}'
+          targetRevision: '{{ .scb.ironman.common.helmTargetRevision }}'
+          path: '{{ .scb.ironman.common.chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/scbconnect/{{ .servicename }}/{{ .env }}/values.yaml'
-        - repoURL: '{{ .scb.scbconnect.common.helmValueRepoUrl }}'
+              - '$values/helm-value/ironman/{{ .servicename }}/{{ .env }}/values.yaml'
+        - repoURL: '{{ .scb.ironman.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
       destination:

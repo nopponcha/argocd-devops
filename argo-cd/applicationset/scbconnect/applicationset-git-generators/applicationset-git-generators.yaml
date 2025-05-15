@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-applicationset-git-generators-scbconnect
+  name: demo-helm-applicationset-git-generators-ironman
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -13,7 +13,7 @@ spec:
               repoURL: https://github.com/nopponcha/argocd-demo.git
               revision: HEAD
               directories:
-                - path: argo-cd/helm-value/scbconnect/*/*
+                - path: argo-cd/helm-value/ironman/*/*
           - list:
               elements:
               #DEV
@@ -58,7 +58,7 @@ spec:
           path: argo-cd/charts
           helm:
             valueFiles:
-              - "$values/argo-cd/helm-value/scbconnect/{{path[3]}}/{{env}}/values.yaml"
+              - "$values/argo-cd/helm-value/ironman/{{path[3]}}/{{env}}/values.yaml"
         - repoURL: https://github.com/nopponcha/argocd-demo.git
           targetRevision: HEAD
           ref: values

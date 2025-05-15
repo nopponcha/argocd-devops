@@ -1,12 +1,12 @@
 ---
 scb:
-  scbconnect:
+  ironman:
     common:
       chart: charts
       helmRepoUrl: https://github.com/nopponcha/helm-chart.git
       helmTargetRevision: main
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
-      valuesPath: helm-value/scbconnect
+      valuesPath: helm-value/ironman
     applications:
       - env: dev
         clusters:
