@@ -6,7 +6,7 @@ scb:
       helmRepoUrl: https://github.com/nopponcha/helm-chart.git
       helmTargetRevision: main
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
-      valuesPath: helm-value/ironman
+      valuesPath: argo-cd//helm-value/ironman
     applications:
       - env: dev
         clusters:
@@ -16,7 +16,6 @@ scb:
             clustername: "gke-nonprod"
         apps:
           - name: "app-be"
-          - name: "app-fe"
       # - env: sit
       #   clusters:
       #     - name: 'https://kubernetes.default.svc'

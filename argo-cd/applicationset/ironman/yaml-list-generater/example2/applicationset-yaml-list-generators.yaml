@@ -41,7 +41,7 @@ spec:
           path: '{{ .scb.ironman.common.chart }}'
           helm:
             valueFiles:
-              - '$values/helm-value/ironman/{{ .servicename }}/{{ .env }}/values.yaml'
+              - '$values/argo-cd/helm-value/ironman/{{ .servicename }}/{{ .env }}/values.yaml'
         - repoURL: '{{ .scb.ironman.common.helmValueRepoUrl }}'
           targetRevision: main
           ref: values
