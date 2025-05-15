@@ -2,7 +2,7 @@
 scb:
   ironman:
     common:
-      chart: charts
+      chart: argo-cd/charts
       helmRepoUrl: https://github.com/nopponcha/helm-chart.git
       helmTargetRevision: main
       helmValueRepoUrl: https://github.com/nopponcha/argocd-demo.git
