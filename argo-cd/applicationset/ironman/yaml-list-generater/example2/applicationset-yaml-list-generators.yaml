@@ -13,7 +13,7 @@ spec:
             repoURL: https://github.com/nopponcha/argocd-devops.git
             revision: main
             files:
-              - path: applicationset/ironman/yaml-list-generater/example2/list-elementsYaml.yaml
+              - path: argo-cd/applicationset/ironman/yaml-list-generater/example2/list-elementsYaml.yaml
         - list:
             elementsYaml: |
                 {{- $appsList := list }}
@@ -24,7 +24,7 @@ spec:
                   {{- $cluster := .name }}
                   {{- $clustername := .clustername }}
                       {{- range .apps }}
-                        {{- $name := printf "%s-%s-%s-%s" $projectname $env .name $clustername | lower }}
+                        {{- $name := printf "%s-%s-%s-%s" $projectname .name $clustername $env | lower }}
                         {{- $appsList = append $appsList (dict "name" $name "projectname" $projectname "env" $env "cluster" $cluster "clustername" $clustername "servicename" .name) }}
                       {{- end }}
                   {{- end }}
