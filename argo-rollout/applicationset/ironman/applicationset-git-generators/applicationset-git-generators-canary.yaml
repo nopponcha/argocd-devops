@@ -49,7 +49,7 @@ spec:
                     # - uat  # กรองให้ไม่เลือก env ที่เป็น "uat"                
   template:
     metadata:
-      name: "{{env}}-{{path[3]}}-{{clustername}}"  # เช่น app-be-dev-minikube
+      name: "{{path[2]}}-{{path[3]}}-{{clustername}}-{{env}}"  # เช่น app-be-dev-minikube
     spec:
       project: default
       sources:
