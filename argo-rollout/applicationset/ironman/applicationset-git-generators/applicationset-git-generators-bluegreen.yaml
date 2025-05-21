@@ -64,7 +64,7 @@ spec:
           ref: values
       destination:
         server: "{{cluster}}"
-        namespace: "{{path[2]}}-{{env}}"ห
+        namespace: "{{path[2]}}-{{env}}"
       syncPolicy:
         automated:
           selfHeal: true
