@@ -25,14 +25,16 @@ argocd-devops/
 
 └── README.md                            # 📘 ไฟล์นี้แหละ!
 
+---
 🔧 สิ่งที่คุณต้องมี
 ✅ ติดตั้ง Argo CD + Argo Rollouts แล้วบน Kubernetes Cluster
-
+---
 ✅ Repository helm-chart/ และ argocd-demo/ ที่แยกเก็บค่า Helm values และ app structure
-
+---
 ✅ Helm chart ที่รองรับ rollout strategy (อยู่ใน repo helm-chart/)
-
+---
 ✅ วิธีใช้งาน
+
 1. Apply ApplicationSet สำหรับ Blue-Green
 bash
 คัดลอก
